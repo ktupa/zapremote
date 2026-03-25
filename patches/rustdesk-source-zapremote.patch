@@ -1,0 +1,338 @@
+diff --git a/Cargo.toml b/Cargo.toml
+index 3961e9d0b..6b44e63de 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -215,7 +215,7 @@ libxdo-sys = { path = "libs/libxdo-sys-stub" }
+ [package.metadata.winres]
+ LegalCopyright = "Copyright © 2025 Purslane Ltd. All rights reserved."
+ ProductName = "RustDesk"
+-FileDescription = "RustDesk Remote Desktop"
++FileDescription = "ZAP Remote"
+ OriginalFilename = "rustdesk.exe"
+ 
+ [target.'cfg(target_os="windows")'.build-dependencies]
+@@ -232,7 +232,7 @@ hound = "3.5"
+ docopt = "1.1"
+ 
+ [package.metadata.bundle]
+-name = "RustDesk"
++name = "ZAP Remote"
+ identifier = "com.carriez.rustdesk"
+ icon = ["res/32x32.png", "res/128x128.png", "res/128x128@2x.png"]
+ osx_minimum_system_version = "10.14"
+diff --git a/flutter/android/app/src/main/AndroidManifest.xml b/flutter/android/app/src/main/AndroidManifest.xml
+index f4788af4c..492976b43 100644
+--- a/flutter/android/app/src/main/AndroidManifest.xml
++++ b/flutter/android/app/src/main/AndroidManifest.xml
+@@ -25,7 +25,7 @@
+     <application
+         android:name=".MainApplication"
+         android:icon="@mipmap/ic_launcher"
+-        android:label="RustDesk"
++        android:label="ZAP Remote"
+         android:requestLegacyExternalStorage="true"
+         android:roundIcon="@mipmap/ic_launcher"
+         android:supportsRtl="true">
+@@ -46,7 +46,7 @@
+             android:name=".InputService"
+             android:enabled="true"
+             android:exported="false"
+-            android:label="RustDesk Input"
++            android:label="ZAP Remote Input"
+             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+             <intent-filter>
+                 <action android:name="android.accessibilityservice.AccessibilityService" />
+diff --git a/flutter/android/app/src/main/res/values/strings.xml b/flutter/android/app/src/main/res/values/strings.xml
+index 3e058a81b..e2ba3acee 100644
+--- a/flutter/android/app/src/main/res/values/strings.xml
++++ b/flutter/android/app/src/main/res/values/strings.xml
+@@ -1,4 +1,4 @@
+ <resources>
+-    <string name="app_name">RustDesk</string>
+-    <string name="accessibility_service_description">Allow other devices to control your phone using virtual touch, when RustDesk screen sharing is established</string>
++    <string name="app_name">ZAP Remote</string>
++    <string name="accessibility_service_description">Allow other devices to control your phone using virtual touch, when ZAP Remote screen sharing is established</string>
+ </resources>
+diff --git a/flutter/lib/common.dart b/flutter/lib/common.dart
+index af87f980f..8ef0afb0d 100644
+--- a/flutter/lib/common.dart
++++ b/flutter/lib/common.dart
+@@ -3660,7 +3660,7 @@ Widget loadPowered(BuildContext context) {
+     cursor: SystemMouseCursors.click,
+     child: GestureDetector(
+       onTap: () {
+-        launchUrl(Uri.parse('https://rustdesk.com'));
++        launchUrl(Uri.parse('https://zapprovedor.com.br'));
+       },
+       child: Opacity(
+           opacity: 0.5,
+diff --git a/flutter/lib/desktop/pages/connection_page.dart b/flutter/lib/desktop/pages/connection_page.dart
+index bdf3829e1..112a83c7b 100644
+--- a/flutter/lib/desktop/pages/connection_page.dart
++++ b/flutter/lib/desktop/pages/connection_page.dart
+@@ -41,7 +41,7 @@ class _OnlineStatusWidgetState extends State<OnlineStatusWidget> {
+   double? get height => bind.isIncomingOnly() ? null : em * 3;
+ 
+   void onUsePublicServerGuide() {
+-    const url = "https://rustdesk.com/pricing";
++    const url = "https://zapprovedor.com.br";
+     canLaunchUrlString(url).then((can) {
+       if (can) {
+         launchUrlString(url);
+diff --git a/flutter/lib/desktop/pages/desktop_home_page.dart b/flutter/lib/desktop/pages/desktop_home_page.dart
+index 339ecddb0..b371d3e32 100644
+--- a/flutter/lib/desktop/pages/desktop_home_page.dart
++++ b/flutter/lib/desktop/pages/desktop_home_page.dart
+@@ -93,24 +93,6 @@ class _DesktopHomePageState extends State<DesktopHomePage>
+       buildTip(context),
+       if (!isOutgoingOnly) buildIDBoard(context),
+       if (!isOutgoingOnly) buildPasswordBoard(context),
+-      FutureBuilder<Widget>(
+-        future: Future.value(
+-            Obx(() => buildHelpCards(stateGlobal.updateUrl.value))),
+-        builder: (_, data) {
+-          if (data.hasData) {
+-            if (isIncomingOnly) {
+-              if (isInHomePage()) {
+-                Future.delayed(Duration(milliseconds: 300), () {
+-                  _updateWindowSize();
+-                });
+-              }
+-            }
+-            return data.data!;
+-          } else {
+-            return const Offstage();
+-          }
+-        },
+-      ),
+       buildPluginEntry(),
+     ];
+     if (isIncomingOnly) {
+@@ -437,7 +419,8 @@ class _DesktopHomePageState extends State<DesktopHomePage>
+       final isToUpdate = (isWindows || isMacOS) && bind.mainIsInstalled();
+       String btnText = isToUpdate ? 'Update' : 'Download';
+       GestureTapCallback onPressed = () async {
+-        final Uri url = Uri.parse('https://rustdesk.com/download');
++        final Uri url =
++            Uri.parse('https://remote.zapprovedor.com.br/download/ZAPRemote-Setup.exe');
+         await launchUrl(url);
+       };
+       if (isToUpdate) {
+diff --git a/flutter/lib/desktop/pages/desktop_setting_page.dart b/flutter/lib/desktop/pages/desktop_setting_page.dart
+index 029629b24..9944d3868 100644
+--- a/flutter/lib/desktop/pages/desktop_setting_page.dart
++++ b/flutter/lib/desktop/pages/desktop_setting_page.dart
+@@ -2369,7 +2369,7 @@ class _AboutState extends State<_About> {
+       final scrollController = ScrollController();
+       return SingleChildScrollView(
+         controller: scrollController,
+-        child: _Card(title: translate('About RustDesk'), children: [
++        child: _Card(title: 'About ZAP Remote', children: [
+           Column(
+             crossAxisAlignment: CrossAxisAlignment.start,
+             children: [
+@@ -2388,7 +2388,7 @@ class _AboutState extends State<_About> {
+                         .marginSymmetric(vertical: 4.0)),
+               InkWell(
+                   onTap: () {
+-                    launchUrlString('https://rustdesk.com/privacy.html');
++                    launchUrlString('https://zapprovedor.com.br');
+                   },
+                   child: Text(
+                     translate('Privacy Statement'),
+@@ -2396,7 +2396,7 @@ class _AboutState extends State<_About> {
+                   ).marginSymmetric(vertical: 4.0)),
+               InkWell(
+                   onTap: () {
+-                    launchUrlString('https://rustdesk.com');
++                    launchUrlString('https://zapprovedor.com.br');
+                   },
+                   child: Text(
+                     translate('Website'),
+diff --git a/flutter/lib/desktop/pages/install_page.dart b/flutter/lib/desktop/pages/install_page.dart
+index 5bf6bafee..650902df2 100644
+--- a/flutter/lib/desktop/pages/install_page.dart
++++ b/flutter/lib/desktop/pages/install_page.dart
+@@ -187,9 +187,9 @@ class _InstallPageBodyState extends State<_InstallPageBody>
+                           InkWell(
+                             hoverColor: Colors.transparent,
+                             onTap: () => launchUrlString(
+-                                'https://rustdesk.com/privacy.html'),
++                                'https://zapprovedor.com.br'),
+                             child: Tooltip(
+-                              message: 'https://rustdesk.com/privacy.html',
++                              message: 'https://zapprovedor.com.br',
+                               child: Row(children: [
+                                 Icon(Icons.launch_outlined, size: 16)
+                                     .marginOnly(right: 5),
+diff --git a/flutter/lib/desktop/widgets/tabbar_widget.dart b/flutter/lib/desktop/widgets/tabbar_widget.dart
+index ac7d80017..118a5f995 100644
+--- a/flutter/lib/desktop/widgets/tabbar_widget.dart
++++ b/flutter/lib/desktop/widgets/tabbar_widget.dart
+@@ -640,7 +640,7 @@ class _DesktopTabState extends State<DesktopTab>
+                         Offstage(
+                             offstage: !showTitle,
+                             child: const Text(
+-                              "RustDesk",
++                              "ZAP Remote",
+                               style: TextStyle(fontSize: 13),
+                             ).marginOnly(left: 2))
+                       ]).marginOnly(
+diff --git a/flutter/lib/mobile/pages/connection_page.dart b/flutter/lib/mobile/pages/connection_page.dart
+index 0e7e0a480..72afc6125 100644
+--- a/flutter/lib/mobile/pages/connection_page.dart
++++ b/flutter/lib/mobile/pages/connection_page.dart
+@@ -124,7 +124,8 @@ class _ConnectionPageState extends State<ConnectionPage> {
+         ? const SizedBox(height: 0)
+         : InkWell(
+             onTap: () async {
+-              final url = 'https://rustdesk.com/download';
++              final url =
++                  'https://remote.zapprovedor.com.br/download/ZAPRemote-Setup.exe';
+               // https://pub.dev/packages/url_launcher#configuration
+               // https://developer.android.com/training/package-visibility/use-cases#open-urls-custom-tabs
+               //
+diff --git a/flutter/lib/mobile/pages/settings_page.dart b/flutter/lib/mobile/pages/settings_page.dart
+index 509260636..5722b12cc 100644
+--- a/flutter/lib/mobile/pages/settings_page.dart
++++ b/flutter/lib/mobile/pages/settings_page.dart
+@@ -35,7 +35,7 @@ class SettingsPage extends StatefulWidget implements PageShape {
+   State<SettingsPage> createState() => _SettingsState();
+ }
+ 
+-const url = 'https://rustdesk.com/';
++const url = 'https://zapprovedor.com.br/';
+ 
+ enum KeepScreenOn {
+   never,
+@@ -529,7 +529,8 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
+               title: Column(
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                   children: [
+-                    Text(translate('Keep RustDesk background service')),
++                    Text(translate('Keep RustDesk background service')
++                      .replaceAll('RustDesk', 'ZAP Remote')),
+                     Text('* ${translate('Ignore Battery Optimizations')}',
+                         style: Theme.of(context).textTheme.bodySmall),
+                   ]),
+@@ -952,7 +953,7 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
+                 title: Text(translate("Version: ") + version),
+                 value: Padding(
+                   padding: EdgeInsets.symmetric(vertical: 8),
+-                  child: Text('rustdesk.com',
++                  child: Text('zapprovedor.com',
+                       style: TextStyle(
+                         decoration: TextDecoration.underline,
+                       )),
+@@ -977,7 +978,7 @@ class _SettingsState extends State<SettingsPage> with WidgetsBindingObserver {
+             SettingsTile(
+               title: Text(translate("Privacy Statement")),
+               onPressed: (context) =>
+-                  launchUrlString('https://rustdesk.com/privacy.html'),
++                  launchUrlString('https://zapprovedor.com.br'),
+               leading: Icon(Icons.privacy_tip),
+             )
+           ],
+@@ -1085,17 +1086,17 @@ void showThemeSettings(OverlayDialogManager dialogManager) async {
+ void showAbout(OverlayDialogManager dialogManager) {
+   dialogManager.show((setState, close, context) {
+     return CustomAlertDialog(
+-      title: Text(translate('About RustDesk')),
++      title: Text('About ZAP Remote'),
+       content: Wrap(direction: Axis.vertical, spacing: 12, children: [
+         Text('Version: $version'),
+         InkWell(
+             onTap: () async {
+-              const url = 'https://rustdesk.com/';
++              const url = 'https://zapprovedor.com.br/';
+               await launchUrl(Uri.parse(url));
+             },
+             child: Padding(
+               padding: EdgeInsets.symmetric(vertical: 8),
+-              child: Text('rustdesk.com',
++              child: Text('zapprovedor.com',
+                   style: TextStyle(
+                     decoration: TextDecoration.underline,
+                   )),
+diff --git a/flutter/linux/my_application.cc b/flutter/linux/my_application.cc
+index a05bb7856..fd936d8f8 100644
+--- a/flutter/linux/my_application.cc
++++ b/flutter/linux/my_application.cc
+@@ -68,11 +68,11 @@ static void my_application_activate(GApplication* application) {
+   if (use_header_bar) {
+     GtkHeaderBar* header_bar = GTK_HEADER_BAR(gtk_header_bar_new());
+     gtk_widget_show(GTK_WIDGET(header_bar));
+-    gtk_header_bar_set_title(header_bar, "rustdesk");
++    gtk_header_bar_set_title(header_bar, "ZAP Remote");
+     gtk_header_bar_set_show_close_button(header_bar, TRUE);
+     gtk_window_set_titlebar(window, GTK_WIDGET(header_bar));
+   } else {
+-    gtk_window_set_title(window, "rustdesk");
++    gtk_window_set_title(window, "ZAP Remote");
+   }
+ 
+   // auto bdw = bitsdojo_window_from(window); // <--- add this line
+diff --git a/flutter/windows/runner/Runner.rc b/flutter/windows/runner/Runner.rc
+index ab1b7e06f..962c166d2 100644
+--- a/flutter/windows/runner/Runner.rc
++++ b/flutter/windows/runner/Runner.rc
+@@ -90,12 +90,12 @@ BEGIN
+         BLOCK "040904e4"
+         BEGIN
+             VALUE "CompanyName", "Purslane Ltd" "\0"
+-            VALUE "FileDescription", "RustDesk Remote Desktop" "\0"
++            VALUE "FileDescription", "ZAP Remote" "\0"
+             VALUE "FileVersion", VERSION_AS_STRING "\0"
+             VALUE "InternalName", "rustdesk" "\0"
+             VALUE "LegalCopyright", "Copyright © 2025 Purslane Ltd. All rights reserved." "\0"
+             VALUE "OriginalFilename", "rustdesk.exe" "\0"
+-            VALUE "ProductName", "RustDesk" "\0"
++            VALUE "ProductName", "ZAP Remote" "\0"
+             VALUE "ProductVersion", VERSION_AS_STRING "\0"
+         END
+     END
+diff --git a/flutter/windows/runner/main.cpp b/flutter/windows/runner/main.cpp
+index cd9f386b1..87bf2b925 100644
+--- a/flutter/windows/runner/main.cpp
++++ b/flutter/windows/runner/main.cpp
+@@ -63,7 +63,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
+   std::vector<std::string> rust_args(c_args, c_args + args_len);
+   free_c_args(c_args, args_len);
+ 
+-  std::wstring app_name = L"RustDesk";
++  std::wstring app_name = L"ZAP Remote";
+   FUNC_RUSTDESK_GET_APP_NAME get_rustdesk_app_name = (FUNC_RUSTDESK_GET_APP_NAME)GetProcAddress(hInstance, "get_rustdesk_app_name");
+   if (get_rustdesk_app_name) {
+     wchar_t app_name_buffer[512] = {0};
+diff --git a/src/auth_2fa.rs b/src/auth_2fa.rs
+index 1c243bc77..1d62cf93c 100644
+--- a/src/auth_2fa.rs
++++ b/src/auth_2fa.rs
+@@ -14,7 +14,7 @@ lazy_static::lazy_static! {
+     static ref CURRENT_2FA: Mutex<Option<(TOTPInfo, TOTP)>> = Mutex::new(None);
+ }
+ 
+-const ISSUER: &str = "RustDesk";
++const ISSUER: &str = "ZAP Remote";
+ const TAG_LOGIN: &str = "Connection";
+ 
+ #[derive(Debug, Clone, Default, Serialize, Deserialize)]
+diff --git a/.github/workflows/zap-remote-windows.yml b/.github/workflows/zap-remote-windows.yml
+new file mode 100644
+index 000000000..c7b1b379c
+--- /dev/null
++++ b/.github/workflows/zap-remote-windows.yml
+@@ -0,0 +1,12 @@
++name: ZAP Remote Windows Build
++
++on:
++  workflow_dispatch:
++
++jobs:
++  build-zap-remote-windows:
++    uses: ./.github/workflows/flutter-build.yml
++    secrets: inherit
++    with:
++      upload-artifact: true
++      upload-tag: zap-remote-nightly
+\ No newline at end of file

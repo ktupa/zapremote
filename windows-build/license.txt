@@ -1,0 +1,40 @@
+TERMOS DE USO - ZAP REMOTE
+===========================
+
+Este software é fornecido pela ZAP Provedor para uso de clientes autorizados.
+
+CONCESSÃO DE LICENÇA:
+A ZAP Provedor concede a você uma licença não exclusiva, não transferível 
+e revogável para uso do software ZAP Remote conforme os termos a seguir.
+
+RESTRIÇÕES:
+- Não redistribuir sem autorização
+- Não modificar ou realizar engenharia reversa
+- Uso restrito para fins autorizados pela ZAP Provedor
+
+TECNOLOGIA:
+Este software é baseado em RustDesk (https://rustdesk.com), um software 
+de código aberto licenciado sob AGPLv3.
+
+ISENÇÃO DE GARANTIA:
+O SOFTWARE É FORNECIDO "COMO ESTÁ", SEM GARANTIAS DE QUALQUER TIPO, 
+EXPRESSAS OU IMPLÍCITAS, INCLUINDO, MAS NÃO SE LIMITANDO A GARANTIAS 
+DE COMERCIALIZAÇÃO, ADEQUAÇÃO A UM PROPÓSITO ESPECÍFICO E NÃO VIOLAÇÃO.
+
+LIMITAÇÃO DE RESPONSABILIDADE:
+EM NENHUM CASO A ZAP PROVEDOR SERÁ RESPONSÁVEL POR QUAISQUER DANOS 
+DIRETOS, INDIRETOS, INCIDENTAIS, ESPECIAIS OU CONSEQUENCIAIS DECORRENTES 
+DO USO OU INCAPACIDADE DE USO DO SOFTWARE.
+
+SUPORTE:
+Suporte técnico disponível para clientes através de:
+Email: suporte@zapprovedor.com.br
+Website: https://zapprovedor.com.br
+
+MODIFICAÇÕES:
+A ZAP Provedor reserva-se o direito de modificar estes termos a qualquer 
+momento, mediante aviso prévio.
+
+DATA DE VIGÊNCIA: Março de 2026
+
+© 2026 ZAP Provedor - Todos os direitos reservados.

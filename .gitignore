@@ -1,0 +1,11 @@
+data/
+server/api-data/
+installer/.wine/
+installer/*.exe
+installer/build/*.exe
+windows-build/*.exe
+windows-build/rustdesk.exe
+rustdesk-source/
+!.gitignore
+!windows-build/
+!patches/

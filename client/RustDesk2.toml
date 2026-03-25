@@ -1,0 +1,13 @@
+# ZAP Remote - Configuração do Cliente
+# Servidor: remote.zapprovedor.com.br
+
+rendezvous_server = "remote.zapprovedor.com.br"
+nat_type = 1
+serial = 0
+
+[options]
+relay-server = "remote.zapprovedor.com.br"
+api-server = "https://remote.zapprovedor.com.br"
+key = "S2xE0UjJfLEHdtWHoiK+IAedpFpaYXI+CU1N28cgJPA="
+custom-rendezvous-server = "remote.zapprovedor.com.br"
+app-name = "ZAP Remote"

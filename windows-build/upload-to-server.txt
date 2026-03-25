@@ -1,0 +1,7 @@
+Upload do novo instalador:
+
+scp ZAPRemote-Setup-v3.exe root@remote.zapprovedor.com.br:/var/www/zap-remote/download/
+ssh root@remote.zapprovedor.com.br 'chmod 644 /var/www/zap-remote/download/ZAPRemote-Setup-v3.exe'
+
+Link esperado:
+https://remote.zapprovedor.com.br/download/ZAPRemote-Setup-v3.exe

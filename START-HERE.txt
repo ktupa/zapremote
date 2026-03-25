@@ -1,0 +1,78 @@
+╔═══════════════════════════════════════════════════════════════╗
+║                                                               ║
+║                    ZAP REMOTE - COMECE AQUI                   ║
+║                                                               ║
+║          Sistema de Acesso Remoto Próprio e Gratuito         ║
+║                                                               ║
+╚═══════════════════════════════════════════════════════════════╝
+
+🎯 OBJETIVO
+-----------
+Substituir AnyDesk/TeamViewer por solução própria com:
+✓ Servidor próprio
+✓ Cliente customizado "ZAP Remote"
+✓ Instalador automatizado Windows
+✓ Domínio: remote.zapprovedor.com.br
+
+📁 ARQUIVOS IMPORTANTES
+-----------------------
+1. QUICK-START.md ............ LEIA PRIMEIRO! (5 minutos)
+2. README.md ................. Documentação completa
+3. DEPLOY-SUMMARY.md ......... Resumo executivo
+
+📚 DOCUMENTAÇÃO
+---------------
+docs/
+├── WINDOWS-BUILD.md ......... Como compilar instalador Windows
+├── DNS-CONFIG.md ............ Configurar domínio
+├── TROUBLESHOOTING.md ....... Resolver problemas
+└── BRANDING.md .............. Criar logo
+
+🚀 INÍCIO RÁPIDO - 3 COMANDOS
+------------------------------
+
+1️⃣ CONFIGURAR DNS (faça no painel do provedor)
+   Tipo: A
+   Nome: remote  
+   Valor: [IP deste servidor]
+
+2️⃣ EXECUTAR DEPLOY
+   cd /opt/zap-remote/scripts
+   ./deploy-server.sh
+
+3️⃣ OBTER CHAVE
+   /opt/zap-remote/scripts/get-public-key.sh
+
+Pronto! Servidor rodando ✅
+
+📦 PRÓXIMO PASSO: INSTALADOR WINDOWS
+-------------------------------------
+Leia: docs/WINDOWS-BUILD.md
+
+🔧 COMANDOS ÚTEIS
+-----------------
+Gerenciar servidor:
+  ./scripts/manage-server.sh [start|stop|restart|logs|status]
+
+Ver chave pública:
+  ./scripts/get-public-key.sh
+
+Atualizar config cliente:
+  ./scripts/update-client-key.sh
+
+Diagnóstico:
+  ./scripts/diagnose.sh
+
+💡 DICA
+--------
+Execute primeiro:  cat QUICK-START.md
+
+📞 SUPORTE
+----------
+Email: suporte@zapprovedor.com.br
+Site: https://zapprovedor.com.br
+
+═══════════════════════════════════════════════════════════════
+
+                    Desenvolvido por ZAP Provedor
+                           Março 2026
